@@ -98,9 +98,10 @@ def get_ipadapter_file(preset, is_sdxl):
             pattern = 'plus.composition.sdxl\.safetensors$'
         else:
             pattern = 'plus.composition.sd15\.safetensors$'
+    elif preset == 'STYLE COMPONENTS - SDXL anime style'.lower():
+        pattern = r'ip.adapter.style.sdxl.*\.safetensors$'
     else:
         raise Exception(f"invalid type '{preset}'")
-
     ipadapter_file = [e for e in ipadapter_list if re.search(pattern, e, re.IGNORECASE)]
     ipadapter_file = folder_paths.get_full_path("ipadapter", ipadapter_file[0]) if ipadapter_file else None
 

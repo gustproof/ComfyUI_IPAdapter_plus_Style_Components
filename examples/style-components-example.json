@@ -1,0 +1,1837 @@
+{
+  "last_node_id": 106,
+  "last_link_id": 141,
+  "nodes": [
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        510.0718039306641,
+        277.0718039306641
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 16,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            78
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "1girl, black hair, black sailor collar, black serafuku, black shirt, black skirt, flower, hair ornament, hatching (texture), holding, holding flower, leaf, long hair, long sleeves, neckerchief, pleated skirt, purple flower, red neckerchief, sailor collar, school uniform, serafuku, shirt, skirt, solo"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        510.0718039306641,
+        380.0718039306641
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 18,
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            77
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        408.0718039306641,
+        598.071803930664
+      ],
+      "size": {
+        "0": 300,
+        "1": 110
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            80
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        832,
+        1216,
+        1
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 50,
+      "type": "IPAdapterUnifiedLoader",
+      "pos": [
+        178.07180393066406,
+        38.07180393066406
+      ],
+      "size": {
+        "0": 315,
+        "1": 78
+      },
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 69
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            64
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "links": [
+            65
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterUnifiedLoader"
+      },
+      "widgets_values": [
+        "STYLE COMPONENTS - SDXL anime style"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        158.07180393066406,
+        -131.92819606933594
+      ],
+      "size": {
+        "0": 350,
+        "1": 100
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            69
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3,
+            5
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            46
+          ],
+          "slot_index": 2
+        }
+      ],
+      "title": "Load Checkpoint - BASE",
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "autismmixSDXL_autismmixPony.safetensors"
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 67,
+      "type": "KSampler",
+      "pos": [
+        778.071803930664,
+        348.0718039306641
+      ],
+      "size": {
+        "0": 315,
+        "1": 262
+      },
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 79
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 78
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 77
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 80
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            82
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        87,
+        "fixed",
+        16,
+        5,
+        "dpmpp_3m_sde",
+        "sgm_uniform",
+        1
+      ]
+    },
+    {
+      "id": 82,
+      "type": "PreviewImage",
+      "pos": [
+        1168.0718039306641,
+        -1.928196069335937
+      ],
+      "size": {
+        "0": 395.99127197265625,
+        "1": 605.1276245117188
+      },
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 103
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 77,
+      "type": "SCompStyleExtractorLoader",
+      "pos": [
+        -810.3489899439941,
+        -703.451290883592
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SCOMP_EXTRACTOR",
+          "type": "SCOMP_EXTRACTOR",
+          "links": [
+            96,
+            99
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompStyleExtractorLoader"
+      },
+      "widgets_values": [
+        "style-extractor-v0.2.0.ckpt"
+      ]
+    },
+    {
+      "id": 78,
+      "type": "LoadImage",
+      "pos": [
+        -469.34898994399396,
+        -720.4512908835923
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            97
+          ],
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "cfd5cadf9c9d1d11819e1f3febf77be8.webp",
+        "image"
+      ]
+    },
+    {
+      "id": 81,
+      "type": "LoadImage",
+      "pos": [
+        -124.34898994399161,
+        -725.4512908835923
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            100
+          ],
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "c378e67b18a5103a1b072b52d59c60dc.webp",
+        "image"
+      ]
+    },
+    {
+      "id": 76,
+      "type": "SCompStyleExtractor",
+      "pos": [
+        -438.3489899439938,
+        -356.45129088359226
+      ],
+      "size": {
+        "0": 279.5999755859375,
+        "1": 46
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style_extractor",
+          "type": "SCOMP_EXTRACTOR",
+          "link": 96,
+          "slot_index": 0
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 97,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDS",
+          "type": "EMBEDS",
+          "links": [
+            98
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompStyleExtractor"
+      }
+    },
+    {
+      "id": 80,
+      "type": "SCompStyleExtractor",
+      "pos": [
+        -105.34898994399154,
+        -362.4512908835923
+      ],
+      "size": {
+        "0": 279.5999755859375,
+        "1": 46
+      },
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style_extractor",
+          "type": "SCOMP_EXTRACTOR",
+          "link": 99,
+          "slot_index": 0
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 100,
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDS",
+          "type": "EMBEDS",
+          "links": [
+            101
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompStyleExtractor"
+      }
+    },
+    {
+      "id": 17,
+      "type": "VAEDecode",
+      "pos": [
+        818.071803930664,
+        210.07180393066406
+      ],
+      "size": {
+        "0": 200,
+        "1": 50
+      },
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 82
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 46
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            103
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 14,
+      "type": "PrimitiveNode",
+      "pos": [
+        191.07180393066406,
+        375.0718039306641
+      ],
+      "size": {
+        "0": 300,
+        "1": 160
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            18
+          ],
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "title": "Negative Prompt (Text)",
+      "properties": {
+        "Run widget replace on values": false
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 13,
+      "type": "PrimitiveNode",
+      "pos": [
+        190.07180393066406,
+        181.07180393066406
+      ],
+      "size": {
+        "0": 300,
+        "1": 160
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            16
+          ],
+          "widget": {
+            "name": "text"
+          },
+          "slot_index": 0
+        }
+      ],
+      "title": "Positive Prompt (Text)",
+      "properties": {
+        "Run widget replace on values": false
+      },
+      "widgets_values": [
+        "1girl, black hair, black sailor collar, black serafuku, black shirt, black skirt, flower, hair ornament, hatching (texture), holding, holding flower, leaf, long hair, long sleeves, neckerchief, pleated skirt, purple flower, red neckerchief, sailor collar, school uniform, serafuku, shirt, skirt, solo"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 79,
+      "type": "IPAdapterCombineEmbeds",
+      "pos": [
+        224.6510100560039,
+        -721.4512908835923
+      ],
+      "size": {
+        "0": 315,
+        "1": 138
+      },
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "embed1",
+          "type": "EMBEDS",
+          "link": 98
+        },
+        {
+          "name": "embed2",
+          "type": "EMBEDS",
+          "link": 101
+        },
+        {
+          "name": "embed3",
+          "type": "EMBEDS",
+          "link": null,
+          "slot_index": 2
+        },
+        {
+          "name": "embed4",
+          "type": "EMBEDS",
+          "link": null
+        },
+        {
+          "name": "embed5",
+          "type": "EMBEDS",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDS",
+          "type": "EMBEDS",
+          "links": [
+            120
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterCombineEmbeds"
+      },
+      "widgets_values": [
+        "average"
+      ]
+    },
+    {
+      "id": 71,
+      "type": "SCompText2Comps",
+      "pos": [
+        -234.57280834766038,
+        -1135.4440647281242
+      ],
+      "size": {
+        "0": 346.4193115234375,
+        "1": 272.0439453125
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SCOMP",
+          "type": "SCOMP",
+          "links": [
+            111
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompText2Comps"
+      },
+      "widgets_values": [
+        "0.427, -0.034, -1.229, -0.312, -0.973, 0.103, 0.237, -1.468, 0.001, -0.251, -0.527, -2.468, -0.804, 1.642, 1.899, 0.004, -1.367, -0.819, 1.210, 0.756, -0.269, 1.972, -0.214, 0.704, 0.230, -0.044, 0.596, -0.231, 1.715, -0.283, -1.031, 0.879, -0.056, 1.486, -0.178, 0.020, -0.492, 0.563, 0.677, -0.052, -0.504, 0.029, -0.583, 0.344, -0.579, -1.568, -0.218, -0.465, 0.425, 0.535, 1.115, -0.036, -0.549, 0.824, 0.014, -0.694, -0.371, 0.013, -0.175, 0.089, 0.582, -0.385, 0.835, -0.134, -0.042, 0.715, 1.108, 0.389, 0.526, -0.460, 0.405, -1.527, 0.188, 0.245, -0.633, -0.176, -0.048, 0.846, 0.340, 0.133, -0.841, 0.129, -0.393, -1.414, -0.395, 0.421, -0.408, 0.854, -0.306, -0.600, -0.294, 0.929, -0.442, -1.300, 0.004, 0.542, -0.480, -1.139, 0.476, -1.029"
+      ]
+    },
+    {
+      "id": 56,
+      "type": "SCompComp2Style",
+      "pos": [
+        220.4271916523431,
+        -1132.4440647281242
+      ],
+      "size": {
+        "0": 231.1508331298828,
+        "1": 82.65088653564453
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style_components",
+          "type": "SCOMP",
+          "link": 119,
+          "slot_index": 0
+        },
+        {
+          "name": "style_pca",
+          "type": "SCOMP_PCA",
+          "link": 57
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDS",
+          "type": "EMBEDS",
+          "links": [
+            124
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompComp2Style"
+      }
+    },
+    {
+      "id": 87,
+      "type": "SCompCompsScaler",
+      "pos": [
+        156.05273061718773,
+        -943.1534789859379
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "comps",
+          "type": "SCOMP",
+          "link": 111,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCOMP",
+          "type": "SCOMP",
+          "links": [
+            119
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompCompsScaler"
+      },
+      "widgets_values": [
+        1
+      ]
+    },
+    {
+      "id": 92,
+      "type": "SCompPCA",
+      "pos": [
+        -283.7159812197909,
+        -1429.4674027450653
+      ],
+      "size": {
+        "0": 324.1430969238281,
+        "1": 58
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SCOMP_PCA",
+          "type": "SCOMP_PCA",
+          "links": [
+            126
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompPCA"
+      },
+      "widgets_values": [
+        "pca-v0.2.1.bin"
+      ]
+    },
+    {
+      "id": 96,
+      "type": "Reroute",
+      "pos": [
+        871,
+        -584
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 128
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "EMBEDS",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 100,
+      "type": "SCompPCA",
+      "pos": [
+        -1212.0923205078127,
+        -1373.0717886718753
+      ],
+      "size": {
+        "0": 324.1430969238281,
+        "1": 58
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SCOMP_PCA",
+          "type": "SCOMP_PCA",
+          "links": [
+            134
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompPCA"
+      },
+      "widgets_values": [
+        "pca-v0.2.1.bin"
+      ]
+    },
+    {
+      "id": 101,
+      "type": "SCompComp2Style",
+      "pos": [
+        -1192.0923205078127,
+        -1516.0717886718753
+      ],
+      "size": {
+        "0": 231.1508331298828,
+        "1": 82.65088653564453
+      },
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style_components",
+          "type": "SCOMP",
+          "link": 135,
+          "slot_index": 0
+        },
+        {
+          "name": "style_pca",
+          "type": "SCOMP_PCA",
+          "link": 134
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDS",
+          "type": "EMBEDS",
+          "links": [
+            137
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompComp2Style"
+      }
+    },
+    {
+      "id": 104,
+      "type": "Note",
+      "pos": [
+        -1199.0923205078127,
+        -1244.0717886718753
+      ],
+      "size": {
+        "0": 287.21270751953125,
+        "1": 69.314697265625
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "ComfyUI doesn't seem to allow a node to be both input and output, which means that all slider values must be set manually."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 55,
+      "type": "SCompPCA",
+      "pos": [
+        -628,
+        -1156
+      ],
+      "size": {
+        "0": 324.1430969238281,
+        "1": 58
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SCOMP_PCA",
+          "type": "SCOMP_PCA",
+          "links": [
+            57
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompPCA"
+      },
+      "widgets_values": [
+        "pca-v0.2.1.bin"
+      ]
+    },
+    {
+      "id": 93,
+      "type": "SCompComp2Style",
+      "pos": [
+        95,
+        -1558
+      ],
+      "size": {
+        "0": 231.1508331298828,
+        "1": 82.65088653564453
+      },
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "style_components",
+          "type": "SCOMP",
+          "link": 129,
+          "slot_index": 0
+        },
+        {
+          "name": "style_pca",
+          "type": "SCOMP_PCA",
+          "link": 126
+        }
+      ],
+      "outputs": [
+        {
+          "name": "EMBEDS",
+          "type": "EMBEDS",
+          "links": [
+            128
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompComp2Style"
+      }
+    },
+    {
+      "id": 105,
+      "type": "Note",
+      "pos": [
+        98,
+        -1396
+      ],
+      "size": {
+        "0": 287.21270751953125,
+        "1": 69.314697265625
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "ComfyUI doesn't seem to have a text output widget? The random components are print to the console instead."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 106,
+      "type": "Note",
+      "pos": [
+        250,
+        -503
+      ],
+      "size": {
+        "0": 284.64312744140625,
+        "1": 58
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Want more than 5 images? Nest combine embeds."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 66,
+      "type": "SCompRandComps",
+      "pos": [
+        -280,
+        -1567
+      ],
+      "size": {
+        "0": 315,
+        "1": 82
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "I",
+          "link": null,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "SCOMP",
+          "type": "SCOMP",
+          "links": [
+            129
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompRandComps"
+      },
+      "widgets_values": [
+        87000,
+        "fixed"
+      ]
+    },
+    {
+      "id": 98,
+      "type": "Note",
+      "pos": [
+        881,
+        -813
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "Pick one"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 97,
+      "type": "Reroute",
+      "pos": [
+        1033,
+        -584
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 141
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "EMBEDS",
+          "links": [
+            130
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 103,
+      "type": "Reroute",
+      "pos": [
+        876,
+        -710
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 137
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "EMBEDS",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 102,
+      "type": "SCompSliders2Comps",
+      "pos": [
+        -1562.0923205078127,
+        -1523.0717886718753
+      ],
+      "size": {
+        "0": 315,
+        "1": 2434
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "SCOMP",
+          "type": "SCOMP",
+          "links": [
+            135
+          ],
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SCompSliders2Comps"
+      },
+      "widgets_values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 91,
+      "type": "Reroute",
+      "pos": [
+        873,
+        -650
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 124
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "EMBEDS",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 63,
+      "type": "IPAdapterEmbeds",
+      "pos": [
+        779.071803930664,
+        -148.92819606933594
+      ],
+      "size": {
+        "0": 315,
+        "1": 254
+      },
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 64
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 65
+        },
+        {
+          "name": "pos_embed",
+          "type": "EMBEDS",
+          "link": 130,
+          "slot_index": 2
+        },
+        {
+          "name": "neg_embed",
+          "type": "EMBEDS",
+          "link": null,
+          "slot_index": 3
+        },
+        {
+          "name": "attn_mask",
+          "type": "MASK",
+          "link": null
+        },
+        {
+          "name": "clip_vision",
+          "type": "CLIP_VISION",
+          "link": null,
+          "slot_index": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            79
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterEmbeds"
+      },
+      "widgets_values": [
+        1,
+        "linear",
+        0,
+        1,
+        "V only"
+      ]
+    },
+    {
+      "id": 90,
+      "type": "Reroute",
+      "pos": [
+        873,
+        -523
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 120
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "EMBEDS",
+          "links": [
+            141
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    }
+  ],
+  "links": [
+    [
+      3,
+      4,
+      1,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      5,
+      4,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      16,
+      13,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      18,
+      14,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      46,
+      4,
+      2,
+      17,
+      1,
+      "VAE"
+    ],
+    [
+      57,
+      55,
+      0,
+      56,
+      1,
+      "SCOMP_PCA"
+    ],
+    [
+      64,
+      50,
+      0,
+      63,
+      0,
+      "MODEL"
+    ],
+    [
+      65,
+      50,
+      1,
+      63,
+      1,
+      "IPADAPTER"
+    ],
+    [
+      69,
+      4,
+      0,
+      50,
+      0,
+      "MODEL"
+    ],
+    [
+      77,
+      7,
+      0,
+      67,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      78,
+      6,
+      0,
+      67,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      79,
+      63,
+      0,
+      67,
+      0,
+      "MODEL"
+    ],
+    [
+      80,
+      5,
+      0,
+      67,
+      3,
+      "LATENT"
+    ],
+    [
+      82,
+      67,
+      0,
+      17,
+      0,
+      "LATENT"
+    ],
+    [
+      96,
+      77,
+      0,
+      76,
+      0,
+      "SCOMP_EXTRACTOR"
+    ],
+    [
+      97,
+      78,
+      0,
+      76,
+      1,
+      "IMAGE"
+    ],
+    [
+      98,
+      76,
+      0,
+      79,
+      0,
+      "EMBEDS"
+    ],
+    [
+      99,
+      77,
+      0,
+      80,
+      0,
+      "SCOMP_EXTRACTOR"
+    ],
+    [
+      100,
+      81,
+      0,
+      80,
+      1,
+      "IMAGE"
+    ],
+    [
+      101,
+      80,
+      0,
+      79,
+      1,
+      "EMBEDS"
+    ],
+    [
+      103,
+      17,
+      0,
+      82,
+      0,
+      "IMAGE"
+    ],
+    [
+      111,
+      71,
+      0,
+      87,
+      0,
+      "SCOMP"
+    ],
+    [
+      119,
+      87,
+      0,
+      56,
+      0,
+      "SCOMP"
+    ],
+    [
+      120,
+      79,
+      0,
+      90,
+      0,
+      "*"
+    ],
+    [
+      124,
+      56,
+      0,
+      91,
+      0,
+      "*"
+    ],
+    [
+      126,
+      92,
+      0,
+      93,
+      1,
+      "SCOMP_PCA"
+    ],
+    [
+      128,
+      93,
+      0,
+      96,
+      0,
+      "*"
+    ],
+    [
+      129,
+      66,
+      0,
+      93,
+      0,
+      "SCOMP"
+    ],
+    [
+      130,
+      97,
+      0,
+      63,
+      2,
+      "EMBEDS"
+    ],
+    [
+      134,
+      100,
+      0,
+      101,
+      1,
+      "SCOMP_PCA"
+    ],
+    [
+      135,
+      102,
+      0,
+      101,
+      0,
+      "SCOMP"
+    ],
+    [
+      137,
+      101,
+      0,
+      103,
+      0,
+      "*"
+    ],
+    [
+      141,
+      90,
+      0,
+      97,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "Style Embedding Creation - From Images",
+      "bounding": [
+        -848,
+        -796,
+        1427,
+        501
+      ],
+      "color": "#8AA",
+      "font_size": 24
+    },
+    {
+      "title": "Style Embedding Creation - From Components - From Text",
+      "bounding": [
+        -723,
+        -1247,
+        1327,
+        421
+      ],
+      "color": "#8AA",
+      "font_size": 24
+    },
+    {
+      "title": "Group",
+      "bounding": [
+        1771,
+        -1776,
+        140,
+        80
+      ],
+      "color": "#3f789e",
+      "font_size": 24
+    },
+    {
+      "title": "Style Embedding Creation - From Components - Random",
+      "bounding": [
+        -305,
+        -1646,
+        769,
+        358
+      ],
+      "color": "#8AA",
+      "font_size": 24
+    },
+    {
+      "title": "Style Embedding Creation - From Components - From Sliders",
+      "bounding": [
+        -1572,
+        -1597,
+        694,
+        2518
+      ],
+      "color": "#8AA",
+      "font_size": 24
+    },
+    {
+      "title": "Pipeline minus the embeddings",
+      "bounding": [
+        148,
+        -223,
+        1426,
+        941
+      ],
+      "color": "#3f789e",
+      "font_size": 24
+    }
+  ],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

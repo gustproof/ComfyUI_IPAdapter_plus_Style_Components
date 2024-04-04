@@ -55,8 +55,11 @@ class IPAdapter(nn.Module):
         self.is_sdxl = is_sdxl
         self.is_full = is_full
         self.is_plus = is_plus
+        self.is_sc = clip_extra_context_tokens == 1
 
-        if is_faceid:
+        if self.is_sc:
+            self.image_proj_model = self.init_proj_sc()
+        elif is_faceid:
             self.image_proj_model = self.init_proj_faceid()
         elif is_full:
             self.image_proj_model = self.init_proj_full()
@@ -67,6 +70,15 @@ class IPAdapter(nn.Module):
 
         self.image_proj_model.load_state_dict(ipadapter_model["image_proj"])
         self.ip_layers = To_KV(ipadapter_model["ip_adapter"])
+        
+    def init_proj_sc(self):
+        image_proj_model = MLPProjModelFaceId(
+            cross_attention_dim=self.cross_attention_dim,
+            id_embeddings_dim=768,
+            num_tokens=self.clip_extra_context_tokens,
+        )
+        return image_proj_model
+        
 
     def init_proj(self):
         image_proj_model = ImageProjModel(
@@ -168,7 +180,8 @@ def ipadapter_execute(model,
     is_faceid = is_portrait or "0.to_q_lora.down.weight" in ipadapter["ip_adapter"]
     is_plus = is_full or "latents" in ipadapter["image_proj"] or "perceiver_resampler.proj_in.weight" in ipadapter["image_proj"]
     is_faceidv2 = "faceidplusv2" in ipadapter
-    output_cross_attention_dim = ipadapter["ip_adapter"]["1.to_k_ip.weight"].shape[1]
+    is_sc = "1.to_k_ip.weight" not in ipadapter["ip_adapter"]
+    output_cross_attention_dim = ipadapter["ip_adapter"]["1.to_k_ip.weight"].shape[1] if not is_sc else 2048
     is_sdxl = output_cross_attention_dim == 2048
 
     if '(SDXL)' in weight_type and not is_sdxl:
@@ -176,20 +189,20 @@ def ipadapter_execute(model,
         #weight_type = "linear"
         #print("\033[33mINFO: 'Style Transfer' weight type is only available for SDXL models, falling back to 'linear'.\033[0m")
 
-    if is_faceid and not insightface:
+    if not is_sc and is_faceid and not insightface:
         raise Exception("insightface model is required for FaceID models")
 
     if is_faceidv2:
         weight_faceidv2 = weight_faceidv2 if weight_faceidv2 is not None else weight*2
 
     cross_attention_dim = 1280 if is_plus and is_sdxl and not is_faceid else output_cross_attention_dim
-    clip_extra_context_tokens = 16 if (is_plus and not is_faceid) or is_portrait else 4
+    clip_extra_context_tokens = 1 if is_sc else 16 if (is_plus and not is_faceid) or is_portrait else 4 
 
     if image is not None and image.shape[1] != image.shape[2]:
         print("\033[33mINFO: the IPAdapter reference image is not a square, CLIPImageProcessor will resize and crop it at the center. If the main focus of the picture is not in the middle the result might not be what you are expecting.\033[0m")
 
     face_cond_embeds = None
-    if is_faceid:
+    if not is_sc and is_faceid:
         if insightface is None:
             raise Exception("Insightface model is required for FaceID models")
 
@@ -278,7 +291,7 @@ def ipadapter_execute(model,
         ipadapter,
         cross_attention_dim=cross_attention_dim,
         output_cross_attention_dim=output_cross_attention_dim,
-        clip_embeddings_dim=img_cond_embeds.shape[-1],
+        clip_embeddings_dim=768 if is_sc else img_cond_embeds.shape[-1],
         clip_extra_context_tokens=clip_extra_context_tokens,
         is_sdxl=is_sdxl,
         is_plus=is_plus,
@@ -357,7 +370,7 @@ class IPAdapterUnifiedLoader:
     def INPUT_TYPES(s):
         return {"required": {
             "model": ("MODEL", ),
-            "preset": (['LIGHT - SD1.5 only (low strength)', 'STANDARD (medium strength)', 'VIT-G (medium strength)', 'PLUS (high strength)', 'PLUS FACE (portraits)', 'FULL FACE - SD1.5 only (portraits stronger)'], ),
+            "preset": (['LIGHT - SD1.5 only (low strength)', 'STANDARD (medium strength)', 'VIT-G (medium strength)', 'PLUS (high strength)', 'PLUS FACE (portraits)', 'FULL FACE - SD1.5 only (portraits stronger)', 'STYLE COMPONENTS - SDXL anime style'], ),
         },
         "optional": {
             "ipadapter": ("IPADAPTER", ),

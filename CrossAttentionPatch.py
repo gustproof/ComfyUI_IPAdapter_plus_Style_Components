@@ -53,6 +53,7 @@ class CrossAttentionPatch:
         _, _, oh, ow = extra_options["original_shape"]
 
         for weight, cond, uncond, ipadapter, mask, weight_type, sigma_start, sigma_end, unfold_batch, embeds_scaling in zip(self.weights, self.conds, self.unconds, self.ipadapters, self.masks, self.weight_types, self.sigma_starts, self.sigma_ends, self.unfold_batch, self.embeds_scaling):
+            is_sc = '1_to_k_ip' not in ipadapter.ip_layers.to_kvs
             if sigma <= sigma_start and sigma >= sigma_end:
                 if weight_type == 'ease in':
                     weight = weight * (0.05 + 0.95 * (1 - t_idx / self.layers))
@@ -93,18 +94,20 @@ class CrossAttentionPatch:
 
                     cond = tensor_to_size(cond, batch_prompt)
                     uncond = tensor_to_size(uncond, batch_prompt)
-
-                    k_cond = ipadapter.ip_layers.to_kvs[self.k_key](cond)
-                    k_uncond = ipadapter.ip_layers.to_kvs[self.k_key](uncond)
+                    if not is_sc:
+                        k_cond = ipadapter.ip_layers.to_kvs[self.k_key](cond)
+                        k_uncond = ipadapter.ip_layers.to_kvs[self.k_key](uncond)
                     v_cond = ipadapter.ip_layers.to_kvs[self.v_key](cond)
                     v_uncond = ipadapter.ip_layers.to_kvs[self.v_key](uncond)
                 else:
-                    k_cond = ipadapter.ip_layers.to_kvs[self.k_key](cond).repeat(batch_prompt, 1, 1)
-                    k_uncond = ipadapter.ip_layers.to_kvs[self.k_key](uncond).repeat(batch_prompt, 1, 1)
+                    if not is_sc:
+                        k_cond = ipadapter.ip_layers.to_kvs[self.k_key](cond).repeat(batch_prompt, 1, 1)
+                        k_uncond = ipadapter.ip_layers.to_kvs[self.k_key](uncond).repeat(batch_prompt, 1, 1)
                     v_cond = ipadapter.ip_layers.to_kvs[self.v_key](cond).repeat(batch_prompt, 1, 1)
                     v_uncond = ipadapter.ip_layers.to_kvs[self.v_key](uncond).repeat(batch_prompt, 1, 1)
 
-                ip_k = torch.cat([(k_cond, k_uncond)[i] for i in cond_or_uncond], dim=0)
+                if not is_sc:
+                    ip_k = torch.cat([(k_cond, k_uncond)[i] for i in cond_or_uncond], dim=0)
                 ip_v = torch.cat([(v_cond, v_uncond)[i] for i in cond_or_uncond], dim=0)
                 
                 if embeds_scaling == 'K+mean(V) w/ C penalty':
@@ -127,7 +130,10 @@ class CrossAttentionPatch:
                     out_ip = optimized_attention(q, ip_k, ip_v, extra_options["n_heads"])
                 else:
                     #ip_v = ip_v * weight
-                    out_ip = optimized_attention(q, ip_k, ip_v, extra_options["n_heads"])
+                    if not is_sc:
+                        out_ip = optimized_attention(q, ip_k, ip_v, extra_options["n_heads"])
+                    else:
+                        out_ip = ip_v                        
                     out_ip = out_ip * weight # I'm doing this to get the same results as before
 
                 if mask is not None:
