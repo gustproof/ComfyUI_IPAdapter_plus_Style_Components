@@ -1,5 +1,7 @@
 # Style Components for ComfyUI IPAdapter plus 
 
+**Links**: [Forge extension](https://github.com/gustproof/sd-webui-forge-style-components) | [ComfyUI nodes](https://github.com/gustproof/ComfyUI_IPAdapter_plus_Style_Components) | [Civitai](https://civitai.com/models/339104)
+
 ![](examples/sc-screenshot.jpg)
 
 ## What is Style Components
